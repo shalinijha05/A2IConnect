@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Welcome, {{ student.name }}!</h1>
+    <p>Build your skills. Discover opportunities. Become industry-ready.</p>
+</section>
+
+<div class="cards">
+    <div class="card">
+        <h3>Career Readiness</h3>
+        <h1>{{ readiness }}%</h1>
+    </div>
+
+    <div class="card">
+        <h3>Skills Added</h3>
+        <h1>{{ skills|length }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Latest Assessment</h3>
+        <h1>
+            {% if latest %}
+                {{ latest.score }}/{{ latest.total }}
+            {% else %}
+                Not Taken
+            {% endif %}
+        </h1>
+    </div>
+</div>
+
+<section class="card">
+    <h2>Your Skills</h2>
+
+    {% for skill in skills %}
+        <p>{{ skill.skill_name }} — {{ skill.level }}/5</p>
+    {% else %}
+        <p>No skills added yet.</p>
+    {% endfor %}
+</section>
+
+<section class="card">
+    <h2>Identified Skill Gaps</h2>
+
+    {% for skill, gap in gaps.items() %}
+        <p>{{ skill }} — Improve by {{ gap }} level(s)</p>
+    {% else %}
+        <p>Your current skills meet the suggested role targets!</p>
+    {% endfor %}
+
+    <a href="/roadmap" class="btn">View Learning Roadmap</a>
+</section>
+
+{% endblock %}
